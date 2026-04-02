@@ -401,16 +401,34 @@ int main(int argc, char* argv[])
         #define PLANE  2
 
         // Desenhamos o modelo da esfera
-        model = Matrix_Translate(-1.0f,0.0f,0.0f);
+        /*model = Matrix_Translate(-1.0f,0.0f,0.0f);
         glUniformMatrix4fv(g_model_uniform, 1 , GL_FALSE , glm::value_ptr(model));
         glUniform1i(g_object_id_uniform, SPHERE);
-        DrawVirtualObject("the_sphere");
+        DrawVirtualObject("the_sphere");*/
+
+        float radius = 3.0f;
+        int rabbits = 16;
+        float amplitude = 1.0f;
+        float scale = 0.4f;
+
+
+        for (int i = 0; i < rabbits; i++)
+        {
+            float phase = ((2 * M_PI) / 16) * i;
+            model = 
+            
+            Matrix_Rotate_Y(phase + (glfwGetTime() * 1.0f)) * 
+            Matrix_Translate(radius, (amplitude * sin(glfwGetTime() + phase * 4)), 0.0f) * 
+            Matrix_Scale(scale, scale, scale);
+
+            glUniformMatrix4fv(g_model_uniform, 1 , GL_FALSE , glm::value_ptr(model));
+            glUniform1i(g_object_id_uniform, BUNNY);
+            DrawVirtualObject("the_bunny");
+        }
 
         // Desenhamos o modelo do coelho
-        model = Matrix_Translate(1.0f,0.0f,0.0f);
-        glUniformMatrix4fv(g_model_uniform, 1 , GL_FALSE , glm::value_ptr(model));
-        glUniform1i(g_object_id_uniform, BUNNY);
-        DrawVirtualObject("the_bunny");
+
+
 
         // Desenhamos o plano do chão
         model = Matrix_Translate(0.0f,-1.0f,0.0f) * Matrix_Scale(4.0f,1.0f,4.0f);

@@ -400,33 +400,70 @@ int main(int argc, char* argv[])
         #define BUNNY  1
         #define PLANE  2
 
-        // Desenhamos o modelo da esfera
-        /*model = Matrix_Translate(-1.0f,0.0f,0.0f);
-        glUniformMatrix4fv(g_model_uniform, 1 , GL_FALSE , glm::value_ptr(model));
-        glUniform1i(g_object_id_uniform, SPHERE);
-        DrawVirtualObject("the_sphere");*/
+
 
         float radius = 3.0f;
         int rabbits = 16;
         float amplitude = 1.0f;
         float scale = 0.4f;
 
-
+        
         for (int i = 0; i < rabbits; i++)
         {
-            float phase = ((2 * M_PI) / 16) * i;
-            model = 
             
-            Matrix_Rotate_Y(phase + (glfwGetTime() * 1.0f)) * 
-            Matrix_Translate(radius, (amplitude * sin(glfwGetTime() + phase * 4)), 0.0f) * 
-            Matrix_Scale(scale, scale, scale);
+            float phase = ((2 * M_PI) / 16) * i;
+            float final_angle = phase + (glfwGetTime() + phase * 4) * -1;
+
+            float rabbit_x = radius * cos(final_angle);
+            float rabbit_y = (amplitude * sin(glfwGetTime() + phase * 4));
+            float rabbit_z = radius * sin(final_angle);
+
+            //Coelinhos
+            glm::mat4 matrix_rabbit = 
+            
+                Matrix_Translate(rabbit_x, rabbit_y, rabbit_z) * 
+                Matrix_Rotate_Y(-final_angle + M_PI + M_PI / 2) *
+                Matrix_Scale(scale, scale, scale);
+
+            model = matrix_rabbit;
+
+
 
             glUniformMatrix4fv(g_model_uniform, 1 , GL_FALSE , glm::value_ptr(model));
             glUniform1i(g_object_id_uniform, BUNNY);
             DrawVirtualObject("the_bunny");
+
+            //Os ovos dos coelhos
+            float egg_scale = 0.4f;
+            float egg_radius = 1.2f;
+
+            glm::mat4 matrix_egg_1 = 
+                Matrix_Translate(0.0f, (egg_radius * sin(glfwGetTime())), (egg_radius * cos(glfwGetTime()))) *
+                Matrix_Scale(0.75f * egg_scale, 1.0f * egg_scale, 0.75f * egg_scale);
+            
+            //OVO virou filho do coelho para pegar o eixo X local
+            model = matrix_rabbit * matrix_egg_1;
+                    
+
+            glUniformMatrix4fv(g_model_uniform, 1 , GL_FALSE , glm::value_ptr(model));
+            glUniform1i(g_object_id_uniform, SPHERE);
+            DrawVirtualObject("the_sphere");
+
+            glm::mat4 matrix_egg_2 = 
+                Matrix_Translate(0.0f, (egg_radius * sin(glfwGetTime() + M_PI)), 
+                (egg_radius * cos(glfwGetTime() + M_PI))) *
+                Matrix_Scale(0.75f * egg_scale, 1.0f * egg_scale, 0.75f * egg_scale);
+
+            //OVO virou filho do coelho para pegar o eixo X local
+            model = matrix_rabbit * matrix_egg_2;
+
+            glUniformMatrix4fv(g_model_uniform, 1 , GL_FALSE , glm::value_ptr(model));
+            glUniform1i(g_object_id_uniform, SPHERE);
+            DrawVirtualObject("the_sphere");
+
         }
 
-        // Desenhamos o modelo do coelho
+
 
 
 

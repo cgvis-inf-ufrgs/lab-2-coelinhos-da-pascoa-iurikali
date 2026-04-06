@@ -244,7 +244,7 @@ int main(int argc, char* argv[])
     // Criamos uma janela do sistema operacional, com 800 colunas e 600 linhas
     // de pixels, e com título "INF01047 ...".
     GLFWwindow* window;
-    window = glfwCreateWindow(800, 600, "INF01047 - Seu Cartao - Seu Nome", NULL, NULL);
+    window = glfwCreateWindow(800, 600, "INF01047 - 00580709 - Iuri Kali", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -406,23 +406,37 @@ int main(int argc, char* argv[])
         int rabbits = 16;
         float amplitude = 1.0f;
         float scale = 0.4f;
+        float vel = .5f;
+        float jumps = 4.0f;
+
+        float egg_scale = 0.4f;
+        float egg_radius = 1.2f;
 
         
         for (int i = 0; i < rabbits; i++)
         {
-            
+
             float phase = ((2 * M_PI) / 16) * i;
-            float final_angle = phase + (glfwGetTime() + phase * 4) * -1;
+            float final_angle = phase - (glfwGetTime() * vel);
+
 
             float rabbit_x = radius * cos(final_angle);
-            float rabbit_y = (amplitude * sin(glfwGetTime() + phase * 4));
+            float rabbit_y = (amplitude * sin(final_angle * jumps));
             float rabbit_z = radius * sin(final_angle);
+
+            float rotation_z = 0.0f;
+
+            if (i % 4 == 0)
+            {
+                rotation_z = final_angle * jumps + M_PI / 4;
+            }
 
             //Coelinhos
             glm::mat4 matrix_rabbit = 
             
-                Matrix_Translate(rabbit_x, rabbit_y, rabbit_z) * 
+                Matrix_Translate(rabbit_x, rabbit_y + 0.4f, rabbit_z) * 
                 Matrix_Rotate_Y(-final_angle + M_PI + M_PI / 2) *
+                Matrix_Rotate_Z(-rotation_z) *
                 Matrix_Scale(scale, scale, scale);
 
             model = matrix_rabbit;
@@ -434,8 +448,6 @@ int main(int argc, char* argv[])
             DrawVirtualObject("the_bunny");
 
             //Os ovos dos coelhos
-            float egg_scale = 0.4f;
-            float egg_radius = 1.2f;
 
             glm::mat4 matrix_egg_1 = 
                 Matrix_Translate(0.0f, (egg_radius * sin(glfwGetTime())), (egg_radius * cos(glfwGetTime()))) *

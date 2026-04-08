@@ -53,16 +53,16 @@
 
 ## Principais dificuldades encontradas durante o desenvolvimento (formato livre)
 
-<mark>`<preencher>`</mark>
+<mark>`Decidir entre utilizar coordenadas polares ou rotacionar no eixo Y depois de ter transladado.`</mark>
 
 ## Você acha que conseguiu resolver o problema de forma adequada?
 
-<mark>`<preencher>`</mark>
+<mark>`Provavelmente sim.`</mark>
 
 ## Se você quiser compartilhar mais alguma coisa, coloque aqui:
 
-<mark>`<preencher>`</mark>
+<mark>`Muito legal descobrir que para que um objeto seja filho de outro é simplesmente multiplicar as matrizes.`</mark>
 
 ## Se você possui alguma sugestão para o professor sobre esta atividade, coloque aqui:
 
-<mark>`<preencher>`</mark>
+<mark>`Nada a comentar.`</mark>

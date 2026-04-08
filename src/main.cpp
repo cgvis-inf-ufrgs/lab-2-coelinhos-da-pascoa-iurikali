@@ -416,7 +416,7 @@ int main(int argc, char* argv[])
         for (int i = 0; i < rabbits; i++)
         {
 
-            float phase = ((2 * M_PI) / 16) * i;
+            float phase = ((2 * M_PI) / rabbits) * i;
             float final_angle = phase - (glfwGetTime() * vel);
 
 

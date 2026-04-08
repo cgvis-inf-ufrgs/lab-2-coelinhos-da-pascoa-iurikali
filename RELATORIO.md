@@ -6,8 +6,8 @@
 
 ## Dados do aluno
 
-- **Cartão UFRGS**: <mark>`<preencher>`</mark>
-- **Nome**: <mark>`<preencher>`</mark>
+- **Cartão UFRGS**: <mark>`00580709`</mark>
+- **Nome**: <mark>`Iuri Kali Sieczkowski de Carvalho`</mark>
 
 ## Passos que eu segui para resolver o problema especificado (em formato de *"prompt"*)
 
@@ -30,7 +30,26 @@
 > - Novamente, lembre-se que você *não pode utilizar ferramentas
 >   de IA para escrever este relatório*
 
-<mark>`<preencher>`</mark>
+<mark>`
+- Crie um loop “for” que começa em 0 e passa por todos os coelhos.
+
+- Coelhos:
+    - Para cada coelho:
+    - Calcule o seu ângulo correspondente dentro do círculo (phase = ((2 * M_PI) / rabbits) * i).
+    - Obtenha a variação do ângulo subtraindo o ângulo anterior pelo o glfwGetTime() (final_angle = phase - (glfwGetTime() * vel)) para que gire para direita.
+    - Calcule a posição x e z utilizando coordenadas polares.
+    - Calcule a posição y utilizando seno e alterando a frequência pela quantidade de pulos (float rabbit_y = (amplitude * sin(final_angle * jumps))).
+    - Calcule a rotação no eixo y para que o coelho sempre fique olhando para frente utilizando -final_angle + M_PI + M_PI / 2.
+    - A cada 4 coelhos calcule a pirueta no eixo z somando o ângulo utilizado para calcular a posição y com PI / 4.
+    - Faça a seguinte multiplicação de matrizes: Translação * Rotação em Y * Rotação em Z * Escala.
+
+- Ovos:
+    - Calcule o movimento de órbita do ovo ao redor do coelho utilizando coordenadas polares no plano yz.
+    - Para transformar a esfera em um ovo, altere a escala x e z para um valor menor do que o do eixo y.
+    - Multiplique a matriz do coelho pela do matriz do ovo para que o ovo vire “filho” do coelho.
+    - Para o segundo ovo apenas some PI no ângulo da coordenadas polares.
+
+</mark>
 
 ## Principais dificuldades encontradas durante o desenvolvimento (formato livre)
 

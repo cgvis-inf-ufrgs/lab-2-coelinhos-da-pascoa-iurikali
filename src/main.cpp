@@ -426,9 +426,16 @@ int main(int argc, char* argv[])
 
             float rotation_z = 0.0f;
 
+            glm::mat4 matrix_rabbit_without_z;
+
             if (i % 4 == 0)
             {
                 rotation_z = final_angle * jumps + M_PI / 4;
+                
+                matrix_rabbit_without_z =                
+                Matrix_Translate(rabbit_x, rabbit_y + 0.4f, rabbit_z) * 
+                Matrix_Rotate_Y(-final_angle + M_PI + M_PI / 2) *
+                Matrix_Scale(scale, scale, scale);
             }
 
             //Coelinhos
@@ -454,7 +461,15 @@ int main(int argc, char* argv[])
                 Matrix_Scale(0.75f * egg_scale, 1.0f * egg_scale, 0.75f * egg_scale);
             
             //OVO virou filho do coelho para pegar o eixo X local
-            model = matrix_rabbit * matrix_egg_1;
+            if (i % 4 == 0)
+            {
+                model = matrix_rabbit_without_z * matrix_egg_1;
+            }
+            else
+            {
+                model = matrix_rabbit * matrix_egg_1;
+            }
+            
                     
 
             glUniformMatrix4fv(g_model_uniform, 1 , GL_FALSE , glm::value_ptr(model));
@@ -467,7 +482,14 @@ int main(int argc, char* argv[])
                 Matrix_Scale(0.75f * egg_scale, 1.0f * egg_scale, 0.75f * egg_scale);
 
             //OVO virou filho do coelho para pegar o eixo X local
-            model = matrix_rabbit * matrix_egg_2;
+            if (i % 4 == 0)
+            {
+                model = matrix_rabbit_without_z * matrix_egg_2;
+            }
+            else
+            {
+                model = matrix_rabbit * matrix_egg_2;
+            }
 
             glUniformMatrix4fv(g_model_uniform, 1 , GL_FALSE , glm::value_ptr(model));
             glUniform1i(g_object_id_uniform, SPHERE);
